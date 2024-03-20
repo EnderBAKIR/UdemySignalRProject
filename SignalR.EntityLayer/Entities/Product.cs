@@ -1,4 +1,6 @@
-﻿namespace SignalR.EntityLayer.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SignalR.EntityLayer.Entities
 {
     public class Product
     {
