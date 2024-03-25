@@ -14,4 +14,5 @@ namespace SignalRApi.Mapping
           CreateMap<About , GetAboutDto>().ReverseMap();
         }
     }
+
 }
