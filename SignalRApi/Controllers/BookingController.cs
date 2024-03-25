@@ -28,7 +28,7 @@ namespace SignalRApi.Controllers
             return Ok(values);
         }
         [HttpPost]
-        public IActionResult AddBooking(CreateBookingDto createBookingDto)
+        public IActionResult CreateBooking(CreateBookingDto createBookingDto)
         {
             var createBookingMap = _mapper.Map<Booking>(createBookingDto);
 
