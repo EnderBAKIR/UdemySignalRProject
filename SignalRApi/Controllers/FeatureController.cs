@@ -57,8 +57,8 @@ namespace SignalRApi.Controllers
         [HttpPut]
         public IActionResult UpdateDiscount(UpdateFeatureDto updateFeatureDto)
         {
-            var updateFeaturetMap = _mapper.Map<Feature>(updateFeatureDto);
-            _featureService.TUpdate(updateFeaturetMap);
+            var updateFeatureMap = _mapper.Map<Feature>(updateFeatureDto);
+            _featureService.TUpdate(updateFeatureMap);
             return Ok("Feature başarılı bir şekilde güncellendi");
         }
     }
