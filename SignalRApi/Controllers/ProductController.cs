@@ -29,6 +29,30 @@ namespace SignalRApi.Controllers
             return Ok(value);
         }
 
+        [HttpGet("ProductListWithCategory")]
+        public IActionResult ProductListWithCategory()
+        {
+            var productsWithCategories = _productService.TGetProductsWithCategories();
+
+            var productListWithCategoryDto = new List<ResultProductWithCategoryDto>();
+            foreach (var product in productsWithCategories)
+            {
+                var resultDto = new ResultProductWithCategoryDto
+                {
+                    ProductId = product.ProductId,
+                    ProductName = product.ProductName,
+                    Description = product.Description,
+                    Price = product.Price,
+                    ImageUrl = product.ImageUrl,
+                    ProductStatus = product.ProductStatus,
+                    CategoryName = product.Category.CategoryName
+                };
+
+                productListWithCategoryDto.Add(resultDto);
+            }
+            return Ok(productListWithCategoryDto);
+        }
+
         [HttpPost]
         public IActionResult CreateFeature(CreateProductDto createProductDto)
         {

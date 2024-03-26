@@ -1,4 +1,6 @@
-﻿namespace SignalR.DtoLayer.ProductDto
+﻿using SignalR.DtoLayer.CategoryDto;
+
+namespace SignalR.DtoLayer.ProductDto
 {
     public class CreateProductDto
     {
@@ -11,6 +13,9 @@
         public string ImageUrl { get; set; }
 
         public bool ProductStatus { get; set; } = true;
+
+        public int CategoryId { get; set; }
+        
     }
 
 }
