@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace SignalR.EntityLayer.Entities
+﻿namespace SignalR.EntityLayer.Entities
 {
     public class Product
     {
@@ -15,5 +13,9 @@ namespace SignalR.EntityLayer.Entities
         public string ImageUrl { get; set; }
 
         public bool ProductStatus { get; set; }
+
+        
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

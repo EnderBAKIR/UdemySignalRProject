@@ -3,6 +3,7 @@ using SignalR.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,10 +25,11 @@ namespace SignalR.DataAccessLayer.Concrete
         public DbSet<Testimonial> Testimonials { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {   
             base.OnModelCreating(modelBuilder);
+            
         }
     }
 
-   
+
 }

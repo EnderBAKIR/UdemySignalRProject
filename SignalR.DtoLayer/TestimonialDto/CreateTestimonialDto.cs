@@ -10,6 +10,6 @@
 
         public string ImageUrl { get; set; }
 
-        public bool Status { get; set; }
+        public bool Status { get; set; } = true;
     }
 }
