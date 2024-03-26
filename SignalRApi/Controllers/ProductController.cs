@@ -55,7 +55,7 @@ namespace SignalRApi.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateDiscount(UpdateProductDto updateProductDto)
+        public IActionResult UpdateProduct(UpdateProductDto updateProductDto)
         {
             var updateProductMap = _mapper.Map<Product>(updateProductDto);
             _productService.TUpdate(updateProductMap);
