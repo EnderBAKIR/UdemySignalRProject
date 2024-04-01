@@ -1,5 +1,7 @@
-﻿using SignalRWebUI.Dtos.CategoryDtos;
+﻿using Microsoft.AspNetCore.Server.IIS;
+using SignalRWebUI.Dtos.CategoryDtos;
 using SignalRWebUI.Services.Interfaces;
+using System.Net;
 
 namespace SignalRWebUI.Services
 {
@@ -23,7 +25,19 @@ namespace SignalRWebUI.Services
 			}
 			return null;
 		}
-	
+		
+		public async Task<CreateCategoryDto> CreateCategoryAsync(CreateCategoryDto createCategoryDto)
+		{
+            createCategoryDto.CategoryStatus = true;
+            var response = await _httpClient.PostAsJsonAsync("https://localhost:7247/api/Category", createCategoryDto);
+
+           if (response.IsSuccessStatusCode)
+			{
+				return createCategoryDto;
+			}
+			return null;
+			
+        }
 			
 
 	}

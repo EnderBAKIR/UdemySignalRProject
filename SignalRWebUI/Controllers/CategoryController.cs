@@ -30,12 +30,12 @@ namespace SignalRWebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
         {
-
-            var response = await _httpClient.PostAsJsonAsync("https://localhost:7247/api/Category", createCategoryDto);
-            if (response.IsSuccessStatusCode)
+           await _categoryService.CreateCategoryAsync(createCategoryDto);
+            if (ModelState.IsValid)
             {
                 return RedirectToAction(nameof(Index));
             }
+            
             return View();
 
         }
