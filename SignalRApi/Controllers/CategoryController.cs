@@ -42,7 +42,7 @@ namespace SignalRApi.Controllers
 
             return Ok("Kategori Silindi");
         }
-        [HttpGet("GetCategory")]
+        [HttpGet("{id}")]
         public IActionResult GetCategory(int id)
         {
             var value = _categorService.TGetById(id);

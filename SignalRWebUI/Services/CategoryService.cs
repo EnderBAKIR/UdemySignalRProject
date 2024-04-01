@@ -20,9 +20,9 @@ namespace SignalRWebUI.Services
 			var response = await _httpClient.GetAsync("https://localhost:7247/api/Category");
 			if (response.IsSuccessStatusCode)
 			{
-				var value = await response.Content.ReadFromJsonAsync<List<ResultCategoryDto>>();
+				var values = await response.Content.ReadFromJsonAsync<List<ResultCategoryDto>>();
 
-				return value.ToList();
+				return values.ToList();
 			}
 			return null;
 		}
@@ -37,7 +37,33 @@ namespace SignalRWebUI.Services
 			
         }
 		
-		public async Task<HttpResponseMessage> DeleteCategoryAsync(int id)
+		public async Task<UpdateCategoryDto> GetCategoryByIdAsync(int id )
+		{
+			var response = await _httpClient.GetAsync($"https://localhost:7247/api/Category/{id}");
+
+			if (response.IsSuccessStatusCode)
+			{
+				var value = await response.Content.ReadFromJsonAsync<UpdateCategoryDto>();
+
+				return value;
+			}
+			return null;
+
+
+		}
+
+        public async Task<HttpResponseMessage> UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto)
+		{
+           
+            var response = await _httpClient.PutAsJsonAsync("https://localhost:7247/api/Category", updateCategoryDto);
+
+            return response;
+        }
+
+
+
+
+        public async Task<HttpResponseMessage> DeleteCategoryAsync(int id)
 		{
 			var response = await _httpClient.DeleteAsync($"https://localhost:7247/api/Category/{id}");
 

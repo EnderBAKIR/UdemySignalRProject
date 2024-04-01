@@ -18,9 +18,9 @@ namespace SignalRWebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-           var values = await _categoryService.GetCategoriesListAsync();
+           var categoryList = await _categoryService.GetCategoriesListAsync();
 
-            return View(values);
+            return View(categoryList);
             
         }
         [HttpGet]
@@ -53,10 +53,27 @@ namespace SignalRWebUI.Controllers
 				return RedirectToAction(nameof(Index));
 			}
             return View();
-			
-            
-            
         }
+        [HttpGet]
+		public async Task<IActionResult> UpdateCategory(int id)
+        {
+            var category = await _categoryService.GetCategoryByIdAsync(id);
+            return View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryDto updateCategoryDto)
+        {
+            HttpResponseMessage response = await _categoryService.UpdateCategoryAsync(updateCategoryDto);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+
+
 
     }
 }

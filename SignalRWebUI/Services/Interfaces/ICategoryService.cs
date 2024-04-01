@@ -5,7 +5,11 @@ namespace SignalRWebUI.Services.Interfaces
 	public interface ICategoryService
 	{
 		Task<List<ResultCategoryDto>> GetCategoriesListAsync();
+		Task<UpdateCategoryDto> GetCategoryByIdAsync(int id);
 		Task<HttpResponseMessage> CreateCategoryAsync(CreateCategoryDto createCategoryDto);
-		Task<HttpResponseMessage> DeleteCategoryAsync(int id);
-    }
+		Task<HttpResponseMessage> UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto);
+        Task<HttpResponseMessage> DeleteCategoryAsync(int id);
+		
+
+	}
 }
