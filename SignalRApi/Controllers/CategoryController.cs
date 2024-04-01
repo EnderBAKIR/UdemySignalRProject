@@ -34,7 +34,7 @@ namespace SignalRApi.Controllers
 
             return Ok($"Kategori Başarılı Bir Şekilde Eklendi Kategori Id = {createCategoryMap.CategoryId}");
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteCategory(int id)
         {
             var value = _categorService.TGetById(id);

@@ -23,21 +23,40 @@ namespace SignalRWebUI.Controllers
             return View(values);
             
         }
+        [HttpGet]
         public IActionResult CreateCategory()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
         {
-           await _categoryService.CreateCategoryAsync(createCategoryDto);
-            if (ModelState.IsValid)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            
-            return View();
+          HttpResponseMessage response = await _categoryService.CreateCategoryAsync(createCategoryDto);
 
+			if (response.IsSuccessStatusCode)
+			{
+				return RedirectToAction(nameof(Index));
+			}
+			return View();
+
+
+
+		}
+
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            HttpResponseMessage response =await _categoryService.DeleteCategoryAsync(id);
+
+            if (response.IsSuccessStatusCode)
+            {
+				return RedirectToAction(nameof(Index));
+			}
+            return View();
+			
+            
+            
         }
+
     }
 }
