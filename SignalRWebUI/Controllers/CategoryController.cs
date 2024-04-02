@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using SignalRWebUI.Dtos.CategoryDtos;
-using SignalRWebUI.Services.Interfaces;
+using SignalRWebUI.Services.Category.Dtos;
+using SignalRWebUI.Services.Category.Intefaces;
 
 namespace SignalRWebUI.Controllers
 {

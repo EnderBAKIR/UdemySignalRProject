@@ -1,4 +1,4 @@
-﻿namespace SignalRWebUI.Dtos.CategoryDtos
+﻿namespace SignalRWebUI.Services.Category.Dtos
 {
     public class CreateCategoryDto
     {

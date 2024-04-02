@@ -1,6 +1,6 @@
-﻿namespace SignalR.DtoLayer.ProductDto
+﻿namespace SignalRWebUI.Services.Product.Dtos
 {
-    public class GetProductDto
+    public class UpdateProductDto
     {
         public int ProductId { get; set; }
 
@@ -16,5 +16,4 @@
 
         public int CategoryId { get; set; }
     }
-
 }
