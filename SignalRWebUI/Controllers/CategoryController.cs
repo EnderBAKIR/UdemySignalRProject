@@ -8,12 +8,10 @@ namespace SignalRWebUI.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
-        private readonly HttpClient _httpClient;
 
-        public CategoryController(ICategoryService categoryService, HttpClient httpClient)
+        public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
-            _httpClient = httpClient;
         }
 
         [HttpGet]
