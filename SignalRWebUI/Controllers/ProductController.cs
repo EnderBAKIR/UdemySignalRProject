@@ -74,9 +74,17 @@ namespace SignalRWebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateProduct(int id)
         {
-            var category = await _productService.GetProductByIdAsync(id);
-            TempData["ProductId"] = category.CategoryId; // viewde bu değerleri geçmemek için burada temp data ile aldım
-            return View(category);
+            var categoriesList = await _categoryService.GetCategoriesListAsync();
+            List<SelectListItem> categorySelectList = (from x in categoriesList
+                                                       select new SelectListItem
+                                                       {
+                                                           Text = x.CategoryName,
+                                                           Value = x.CategoryId.ToString()
+                                                       }).ToList();
+            ViewBag.categoryList = categorySelectList;
+            var product = await _productService.GetProductByIdAsync(id);
+            TempData["ProductId"] = product.ProductId; // viewde bu değerleri geçmemek için burada temp data ile aldım
+            return View(product);
         }
 
         [HttpPost]
