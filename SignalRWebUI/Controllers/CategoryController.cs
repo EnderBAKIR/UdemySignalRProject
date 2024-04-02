@@ -16,6 +16,7 @@ namespace SignalRWebUI.Controllers
             _httpClient = httpClient;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
            var categoryList = await _categoryService.GetCategoriesListAsync();
@@ -23,6 +24,9 @@ namespace SignalRWebUI.Controllers
             return View(categoryList);
             
         }
+
+
+
         [HttpGet]
         public IActionResult CreateCategory()
         {
@@ -54,16 +58,24 @@ namespace SignalRWebUI.Controllers
 			}
             return View();
         }
+
+
+
+
         [HttpGet]
 		public async Task<IActionResult> UpdateCategory(int id)
         {
             var category = await _categoryService.GetCategoryByIdAsync(id);
+            TempData["CategoryId"] = category.CategoryId; // viewde bu değerleri geçmemek için burda temp data ile aldım
             return View(category);
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
+            var category = await _categoryService.GetCategoryByIdAsync(Convert.ToInt32( TempData["CategoryId"]));
+            updateCategoryDto.CategoryId = category.CategoryId;
+            updateCategoryDto.CategoryStatus = category.CategoryStatus;
             HttpResponseMessage response = await _categoryService.UpdateCategoryAsync(updateCategoryDto);
 
             if (response.IsSuccessStatusCode)
