@@ -6,86 +6,85 @@ namespace SignalRWebUI.Controllers
 {
     public class ProductController : Controller
     {
-        public class CategoryController : Controller
+
+        private readonly IProductService _productService;
+
+        public ProductController(IProductService productService)
         {
-            private readonly IProductService _productService;
+            _productService = productService;
 
-            public CategoryController(IProductService productService)
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var productsList = await _productService.GetProductsListAsync();
+
+            return View(productsList);
+
+        }
+
+
+
+        [HttpGet]
+        public IActionResult CreateProduct()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
+        {
+            HttpResponseMessage response = await _productService.CreateProductAsync(createProductDto);
+
+            if (response.IsSuccessStatusCode)
             {
-                _productService = productService;
-
+                return RedirectToAction(nameof(Index));
             }
+            return View();
 
-            [HttpGet]
-            public async Task<IActionResult> Index()
+
+
+        }
+
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            HttpResponseMessage response = await _productService.DeleteProductAsync(id);
+
+            if (response.IsSuccessStatusCode)
             {
-                var productsList = await _productService.GetProductsListAsync();
-
-                return View(productsList);
-
+                return RedirectToAction(nameof(Index));
             }
+            return View();
+        }
 
 
 
-            [HttpGet]
-            public IActionResult CreateProduct()
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateProduct(int id)
+        {
+            var category = await _productService.GetProductByIdAsync(id);
+            TempData["ProductId"] = category.CategoryId; // viewde bu değerleri geçmemek için burada temp data ile aldım
+            return View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
+        {
+            var product = await _productService.GetProductByIdAsync(Convert.ToInt32(TempData["ProductId"]));
+
+            updateProductDto.ProductId = product.ProductId;
+            updateProductDto.ProductStatus = product.ProductStatus;
+
+            HttpResponseMessage response = await _productService.UpdateProductAsync(updateProductDto);
+
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
-
-            [HttpPost]
-            public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
-            {
-                HttpResponseMessage response = await _productService.CreateProductAsync(createProductDto);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                return View();
-
-
-
-            }
-
-            public async Task<IActionResult> DeleteProduct(int id)
-            {
-                HttpResponseMessage response = await _productService.DeleteProductAsync(id);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                return View();
-            }
-
-
-
-
-            [HttpGet]
-            public async Task<IActionResult> UpdateProduct(int id)
-            {
-                var category = await _productService.GetProductByIdAsync(id);
-                TempData["ProductId"] = category.CategoryId; // viewde bu değerleri geçmemek için burda temp data ile aldım
-                return View(category);
-            }
-
-            [HttpPost]
-            public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
-            {
-                var product = await _productService.GetProductByIdAsync(Convert.ToInt32(TempData["ProductId"]));
-
-                updateProductDto.ProductId = product.ProductId;
-                updateProductDto.ProductStatus = product.ProductStatus;
-
-                HttpResponseMessage response = await _productService.UpdateProductAsync(updateProductDto);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                return View();
-            }
+            return View();
         }
     }
 }
+

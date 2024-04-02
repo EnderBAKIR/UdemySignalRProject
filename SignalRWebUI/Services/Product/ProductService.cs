@@ -24,7 +24,7 @@ namespace SignalRWebUI.Services.Product
 
         public async Task<List<ResultProductDto>> GetProductsListAsync()
         {
-            var response = await _httpClient.GetAsync("https://localhost:7247/api/Product");
+            var response = await _httpClient.GetAsync("https://localhost:7247/api/Product/ProductListWithCategory");
             if (response.IsSuccessStatusCode)
             {
                 var values = await response.Content.ReadFromJsonAsync<List<ResultProductDto>>();
