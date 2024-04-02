@@ -33,7 +33,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="CategoryId">Kategori Seçiniz</label>
-                                <input type="text" asp-for="CategoryId" class="form-control" id="CategoryId">
+                                @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.categoryList, new {@class="form-control"})
                             </div>
                             <div class="card-action">
                                 <button class="btn btn-primary">Ürünü Ekle</button>

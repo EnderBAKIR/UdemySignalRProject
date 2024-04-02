@@ -54,7 +54,7 @@ namespace SignalRApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateFeature(CreateProductDto createProductDto)
+        public IActionResult CreateProduct(CreateProductDto createProductDto)
         {
             var createProductMap = _mapper.Map<Product>(createProductDto);
             _productService.TAdd(createProductMap);

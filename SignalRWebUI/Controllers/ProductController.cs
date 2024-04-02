@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using SignalRWebUI.Services.Category.Intefaces;
 using SignalRWebUI.Services.Product.Dtos;
 using SignalRWebUI.Services.Product.Interfaces;
 
@@ -8,11 +10,11 @@ namespace SignalRWebUI.Controllers
     {
 
         private readonly IProductService _productService;
-
-        public ProductController(IProductService productService)
+        private readonly ICategoryService _categoryService;
+        public ProductController(IProductService productService, ICategoryService categoryService)
         {
             _productService = productService;
-
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -27,8 +29,16 @@ namespace SignalRWebUI.Controllers
 
 
         [HttpGet]
-        public IActionResult CreateProduct()
+        public async Task<IActionResult> CreateProduct()
         {
+            var categoriesList = await _categoryService.GetCategoriesListAsync();
+            List<SelectListItem> categorySelectList = (from x in categoriesList
+                                                       select new SelectListItem
+                                                       {
+                                                           Text = x.CategoryName,
+                                                           Value = x.CategoryId.ToString()
+                                                       }).ToList();
+            ViewBag.categoryList = categorySelectList;
             return View();
         }
 
